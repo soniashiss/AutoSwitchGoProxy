@@ -25,15 +25,18 @@ var proxyInfo ProxyInfo
 
 func init() {
 	log.SetOutput(os.Stdout)
+	var internalAddresses string
 	flag.StringVar(&cacheDir, "cacheDir", "", "go modules cache dir")
 	flag.StringVar(&listen, "listen", "0.0.0.0:8081", "service listen address")
 	flag.StringVar(&proxyInfo.RemoteProxyAddress, "remoteproxy", "https://athens.azurefd.net", "remote proxy address, used in all code address except that which contains no proxy address")
-	flag.StringVar(&proxyInfo.InternalAddress, "internalproxy", "", "internal")
+	flag.StringVar(&internalAddresses, "internalproxy", "", "internal")
 	flag.Parse()
 	isGitValid := checkGitVersion()
 	if !isGitValid {
 		log.Fatal("Error in git version, please check your git installed in local, must be great 2.0")
 	}
+	proxyInfo.InternalAddress = strings.Split(strings.Trim(internalAddresses, " "), ",")
+
 }
 
 func checkGitVersion() bool {

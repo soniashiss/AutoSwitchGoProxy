@@ -222,9 +222,11 @@ func replceUrl(url string, proxyInfo *ProxyInfo) string {
 	return url
 }
 
-func isProxy(url string, noProxyAddress string) bool {
-	if "" != noProxyAddress && strings.Contains(url, noProxyAddress) {
-		return false
+func isProxy(url string, noProxyAddresses []string) bool {
+	for _, noProxyAddress := range noProxyAddresses {
+		if "" != noProxyAddress  && strings.Contains(url, noProxyAddress){
+			return false
+		}
 	}
 	return true
 }
