@@ -46,9 +46,9 @@ func NewProxy(cache string, proxyInfo *ProxyInfo) http.Handler {
 			innerHandle.ServeHTTP(w, r)
 			return
 		}
-		log.Printf("internalAddress: %v", proxyInfo.InternalAddress)
+		//log.Printf("internalAddress: %v", proxyInfo.InternalAddress)
 		needProxy := isProxy(r.URL.Path, proxyInfo.InternalAddress)
-		log.Printf("uri:%v, needProxy: %v", r.URL.Path, needProxy)
+		//log.Printf("uri:%v, needProxy: %v", r.URL.Path, needProxy)
 		requests.SetTimeout(60000)
 		switch suf := info.suf; suf {
 		case ".info", ".mod", ".zip":
